@@ -3,7 +3,7 @@
 
 namespace R5T.L0073.Y000
 {
-    public static partial class Links
+    public static class Links
     {
         /// <summary>
         /// <value><see href="https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/access-modifiers"/></value>

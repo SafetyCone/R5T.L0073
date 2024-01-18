@@ -90,6 +90,23 @@ namespace R5T.L0073.F001
             return output;
         }
 
+        public EqualsValueClauseSyntax EqualsValueClause(ExpressionSyntax expression)
+        {
+            var output = _Raw.EqualsValueClause(expression);
+
+            output = Instances.SyntaxTokenOperator.Set_LeadingTrivia(
+                output.EqualsToken,
+                Instances.Spacings.Space,
+                output);
+
+            output = Instances.SyntaxTokenOperator.Set_TrailingSeparatingSpacing(
+                output.EqualsToken,
+                Instances.Spacings.Space,
+                output);
+
+            return output;
+        }
+
         public ExpressionStatementSyntax ExpressionStatement(ExpressionSyntax expression)
         {
             var output = SyntaxFactory.ExpressionStatement(expression);
@@ -125,19 +142,16 @@ namespace R5T.L0073.F001
             return output;
         }
 
-        public MethodDeclarationSyntax MethodDeclaration(
-           TypeSyntax returnType,
-           SyntaxToken simpleMethodNameIdentifier)
+        public InvocationExpressionSyntax InvocationExpression(
+            ExpressionSyntax expression)
         {
-            var methodDeclaration = _Raw.MethodDeclaration(
-                returnType,
-                simpleMethodNameIdentifier);
+            var output = SyntaxFactory.InvocationExpression(expression);
+            return output;
+        }
 
-            var output = this.Build(
-                methodDeclaration,
-                Instances.MethodDeclarationOperations.Add_Body,
-                Instances.MethodDeclarationOperations.Set_IdentifierSeparatingSpacing);
-
+        public LocalDeclarationStatementSyntax LocalDeclarationStatement(VariableDeclarationSyntax variableDeclaration)
+        {
+            var output = SyntaxFactory.LocalDeclarationStatement(variableDeclaration);
             return output;
         }
 
@@ -150,6 +164,22 @@ namespace R5T.L0073.F001
             var output = this.MethodDeclaration(
                 returnType,
                 simpleMethodNameIdentifier);
+
+            return output;
+        }
+
+        public MethodDeclarationSyntax MethodDeclaration(
+           TypeSyntax returnType,
+           SyntaxToken simpleMethodNameIdentifier)
+        {
+            var methodDeclaration = _Raw.MethodDeclaration(
+                returnType,
+                simpleMethodNameIdentifier);
+
+            var output = this.Build(
+                methodDeclaration,
+                Instances.MethodDeclarationOperations.Add_Body,
+                Instances.MethodDeclarationOperations.Set_IdentifierSeparatingSpacing);
 
             return output;
         }
@@ -420,6 +450,28 @@ namespace R5T.L0073.F001
                 output,
                 identifier,
                 spacedIdentifier);
+
+            return output;
+        }
+
+        public VariableDeclarationSyntax VariableDeclaration(
+            string variableName,
+            ExpressionSyntax expression)
+        {
+            var initializer = this.EqualsValueClause(expression);
+
+            var declarator = _Raw.VariableDeclarator(
+                variableName,
+                initializer);
+
+            var output = _Raw.VariableDeclaration(
+                Instances.Types.var,
+                declarator);
+
+            output = Instances.SyntaxTokenOperator.Set_LeadingTrivia(
+                output.Variables.First().Identifier,
+                Instances.Spacings.Space,
+                output);
 
             return output;
         }

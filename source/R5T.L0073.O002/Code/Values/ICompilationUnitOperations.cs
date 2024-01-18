@@ -14,7 +14,8 @@ namespace R5T.L0073.O002
     [ValuesMarker]
     public partial interface ICompilationUnitOperations : IValuesMarker
     {
-        public Func<CompilationUnitSyntax, CompilationUnitSyntax> Add_Namespace(
+        [Obsolete("Bad abstrction. See ICompilationUnitContextOperations.Add_Namespace()")]
+        public Func<CompilationUnitSyntax, CompilationUnitSyntax> Add_Namespace_Bad(
             string namespaceName,
             IEnumerable<Func<NamespaceDeclarationSyntax, ICompilationUnitContext, NamespaceDeclarationSyntax>> namespaceModifiers)
         {
@@ -43,11 +44,12 @@ namespace R5T.L0073.O002
             };
         }
 
-        public Func<CompilationUnitSyntax, CompilationUnitSyntax> Add_Namespace(
+        [Obsolete("Bad abstrction. See ICompilationUnitContextOperations.Add_Namespace()")]
+        public Func<CompilationUnitSyntax, CompilationUnitSyntax> Add_Namespace_Bad(
             string namespaceName,
             params Func<NamespaceDeclarationSyntax, ICompilationUnitContext, NamespaceDeclarationSyntax>[] namespaceModifiers)
         {
-            return this.Add_Namespace(
+            return this.Add_Namespace_Bad(
                 namespaceName,
                 namespaceModifiers.AsEnumerable());
         }

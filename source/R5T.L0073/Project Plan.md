@@ -2,6 +2,23 @@
 Roslyn (Microsoft.CodeAnalysis) library.
 
 
+## How this library works
+
+* Syntax element-level operators and operations are in R5T.L0073.F001.
+	These work on the value-based semantics of the Roslyn syntax elements, so are Func{TSyntax, TSyntax}.
+
+* IHasX/IWithX interface types are defined in R5T.L0073.T001.
+
+* IHasX/IWithX operators and operations are in R5T.L0073.F002.
+	These work on the reference-based semantics of IHasX/IWithX, so are Action{IHasX}.
+
+* Context classes and interfaces are in R5T.L0073.T002.
+	These implement sets of the IHasX/IWithX interfaces from R5T.L0073.T001.
+
+* Contextual operations are in R5T.L0073.O002.
+
+* R5T.L0073.F002.ICompilationUnitOperator inherits from R5T.L0073.F001.ICompilationUnitOperator, but works on the I{Has/With}CompilationUnit interfaces.
+
 ## Prior Work
 
 * R5T.E0068 (most recent, best)

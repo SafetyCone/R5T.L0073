@@ -9,6 +9,11 @@ namespace R5T.L0073.Z001.Strings
     public partial interface IMethodNames : IValuesMarker
     {
         /// <summary>
+        /// <para><value>Build</value></para>
+        /// </summary>
+        public string Build => "Build";
+
+        /// <summary>
         /// <para><value>Main</value></para>
         /// </summary>
         public string Main => "Main";

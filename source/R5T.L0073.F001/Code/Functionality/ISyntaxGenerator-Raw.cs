@@ -55,6 +55,28 @@ namespace R5T.L0073.F001.Raw
             return output;
         }
 
+        public MethodDeclarationSyntax MethodDeclaration_VoidReturn(string simpleMethodName)
+        {
+            var returnType = Instances.Types.Void;
+
+            var output = this.MethodDeclaration(
+               returnType,
+               simpleMethodName);
+
+            return output;
+        }
+
+        public MethodDeclarationSyntax MethodDeclaration_VoidReturn(SyntaxToken simpleMethodNameIdentifier)
+        {
+            var returnType = Instances.Types.Void;
+
+            var output = this.MethodDeclaration(
+                returnType,
+                simpleMethodNameIdentifier);
+
+            return output;
+        }
+
         public MethodDeclarationSyntax MethodDeclaration(
             TypeSyntax returnType,
             SyntaxToken simpleMethodNameIdentifier)
@@ -75,29 +97,7 @@ namespace R5T.L0073.F001.Raw
                simpleMethodName);
 
             return output;
-        }
-
-        public MethodDeclarationSyntax MethodDeclaration_VoidReturn(SyntaxToken simpleMethodNameIdentifier)
-        {
-            var returnType = Instances.Types.Void;
-
-            var output = this.MethodDeclaration(
-                returnType,
-                simpleMethodNameIdentifier);
-
-            return output;
-        }
-
-        public MethodDeclarationSyntax MethodDeclaration_VoidReturn(string simpleMethodName)
-        {
-            var returnType = Instances.Types.Void;
-
-            var output = this.MethodDeclaration(
-               returnType,
-               simpleMethodName);
-
-            return output;
-        }
+        }        
 
         public NamespaceDeclarationSyntax Namespace(NameSyntax namespaceName)
         {

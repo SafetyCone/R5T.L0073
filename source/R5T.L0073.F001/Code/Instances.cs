@@ -33,6 +33,7 @@ namespace R5T.L0073.F001
         public static INamespaceDeclarationOperator NamespaceDeclarationOperator => F001.NamespaceDeclarationOperator.Instance;
         public static L0066.INamespaceNameOperator NamespaceNameOperator => L0066.NamespaceNameOperator.Instance;
         public static IPredefinedTypes PredefinedTypes => F001.PredefinedTypes.Instance;
+        public static ISpacings Spacings => F001.Spacings.Instance;
         public static L0066.IStringOperator StringOperator => L0066.StringOperator.Instance;
         public static L0066.IStrings Strings => L0066.Strings.Instance;
         public static L0066.ISwitchOperator SwitchOperator => L0066.SwitchOperator.Instance;

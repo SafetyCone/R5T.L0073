@@ -9,13 +9,13 @@
     <Version>1.0.0</Version>
     <Authors>DCoats</Authors>
     <Company>Rivet</Company>
-    <Copyright>Copyright © Rivet 2023</Copyright>
-    <Description>Common syntax element values.</Description>
+    <Copyright>Copyright © Rivet 2024</Copyright>
+    <Description>IHasX/IWithX-based Roslyn operations.</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\R5T.Z0064\source\R5T.Z0064.Z000\R5T.Z0064.Z000.csproj" />
-    <ProjectReference Include="..\R5T.L0073.F002\R5T.L0073.F002.csproj" />
+    <ProjectReference Include="..\R5T.L0073.F001\R5T.L0073.F001.csproj" />
+    <ProjectReference Include="..\R5T.L0073.T001\R5T.L0073.T001.csproj" />
   </ItemGroup>
 </Project>
