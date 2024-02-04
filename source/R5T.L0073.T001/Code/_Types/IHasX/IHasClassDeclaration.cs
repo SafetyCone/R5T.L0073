@@ -2,13 +2,13 @@
 
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
-using R5T.T0142;
+using R5T.T0240;
 
 
 namespace R5T.L0073.T001
 {
-    [DataTypeMarker]
-    public interface IHasClassDeclaration
+    [HasXMarker]
+    public interface IHasClassDeclaration : IHasXMarker
     {
         ClassDeclarationSyntax ClassDeclaration { get; }
     }

@@ -36,6 +36,19 @@ namespace R5T.L0073.F001
 
         public CompilationUnitSyntax Add_UsingDirective(
             CompilationUnitSyntax compilationUnit,
+            string namespaceName)
+        {
+            var usingDirective = Instances.SyntaxGenerator.UsingDirective(namespaceName);
+
+            var output = this.Add_UsingDirective(
+                compilationUnit,
+                usingDirective);
+
+            return output;
+        }
+
+        public CompilationUnitSyntax Add_UsingDirective(
+            CompilationUnitSyntax compilationUnit,
             UsingDirectiveSyntax usingDirective)
         {
             var output = this.Add_UsingDirectives(

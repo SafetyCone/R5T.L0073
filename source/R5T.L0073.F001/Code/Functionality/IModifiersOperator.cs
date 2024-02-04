@@ -83,6 +83,23 @@ namespace R5T.L0073.F001
             return output;
         }
 
+        /// <summary>
+        /// Quality-of-life overload for <see cref="Get_ModifiersTokenList_InOrder(ModifiersDescriptor)"/>.
+        /// </summary>
+        public SyntaxTokenList Get_ModifiersTokenList(ModifiersDescriptor descriptor)
+        {
+            var output = this.Get_ModifiersTokenList_InOrderWithSpacing(descriptor);
+            return output;
+        }
+
+        public SyntaxTokenList Get_ModifiersTokenList_InOrderWithSpacing(ModifiersDescriptor descriptor)
+        {
+            var modifiers = this.Get_ModifiersTokenList_InOrder(descriptor);
+
+            var output = this.Ensure_SeparatingSpacing(modifiers);
+            return output;
+        }
+
         public SyntaxTokenList Get_ModifiersTokenList_InOrder(ModifiersDescriptor descriptor)
         {
             var modifiers = Instances.EnumerableOperator.New<SyntaxToken>();
@@ -309,6 +326,23 @@ namespace R5T.L0073.F001
                 SyntaxKind.VolatileKeyword);
 
             return output;
+        }
+
+        public void Reset(ModifiersDescriptor modifiersDescriptor)
+        {
+            modifiersDescriptor.Accessibility = MemberAccessibilityLevel.Unspecified;
+            modifiersDescriptor.Implementation = ImplementationLevel.Unspecified;
+            modifiersDescriptor.Is_Async = false;
+            modifiersDescriptor.Is_Const = false;
+            modifiersDescriptor.Is_Extern = false;
+            modifiersDescriptor.Is_New = false;
+            modifiersDescriptor.Is_Partial = false;
+            modifiersDescriptor.Is_ReadOnly = false;
+            modifiersDescriptor.Is_Required = false;
+            modifiersDescriptor.Is_Sealed = false;
+            modifiersDescriptor.Is_Static = false;
+            modifiersDescriptor.Is_Unsafe = false;
+            modifiersDescriptor.Is_Volatile = false;
         }
     }
 }

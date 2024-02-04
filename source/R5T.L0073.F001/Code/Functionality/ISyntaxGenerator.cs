@@ -427,6 +427,14 @@ namespace R5T.L0073.F001
             return output;
         }
 
+        public UsingDirectiveSyntax UsingDirective(string namespaceName)
+        {
+            var namespaceName_Syntax = this.NamespaceName(namespaceName);
+
+            var output = this.UsingDirective(namespaceName_Syntax);
+            return output;
+        }
+
         public UsingDirectiveSyntax UsingDirective(NameSyntax namespaceName)
         {
             var raw = _Raw.UsingDirective(namespaceName);

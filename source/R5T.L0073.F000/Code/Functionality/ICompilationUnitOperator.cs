@@ -37,6 +37,22 @@ namespace R5T.L0073.F000
             return _Platform.Load_Raw_Synchronous(codeFilePath.Value);
         }
 
+        /// <summary>
+        /// Gets a brand new, empty, compilation unit.
+        /// </summary>
+        /// <remarks>
+        /// Quality-of-life overload for <see cref="New"/>.
+        /// </remarks>
+        public CompilationUnitSyntax New_Empty()
+        {
+            var output = this.New();
+            return output;
+        }
+
+        /// <summary>
+        /// Gets a brand new compilation unit.
+        /// </summary>
+        /// <returns></returns>
         public CompilationUnitSyntax New()
         {
             var output = Instances.SyntaxGenerator.CompilationUnit();
