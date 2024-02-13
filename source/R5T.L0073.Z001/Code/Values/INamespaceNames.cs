@@ -10,6 +10,9 @@ namespace R5T.L0073.Z001
     [ValuesMarker]
     public partial interface INamespaceNames : IValuesMarker
     {
+
+
+
         /// <inheritdoc cref="Z0064.Z000.INamespaceNames.System"/>
         public NameSyntax System => Instances.SyntaxGenerator.NamespaceName(
             Instances.NamespaceNames_Strings.System);
