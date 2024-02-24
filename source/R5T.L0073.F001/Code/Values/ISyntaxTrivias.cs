@@ -10,6 +10,9 @@ namespace R5T.L0073.F001
     [ValuesMarker]
     public partial interface ISyntaxTrivias : IValuesMarker
     {
+        /// <inheritdoc cref="ISyntaxGenerator.DocumentationCommentExteriorTrivia"/>
+        public SyntaxTrivia DocumentationCommentExteriorTrivia => Instances.SyntaxGenerator.DocumentationCommentExteriorTrivia();
+
         /// <summary>
         /// A trivia in its initial (zero) state.
         /// </summary>

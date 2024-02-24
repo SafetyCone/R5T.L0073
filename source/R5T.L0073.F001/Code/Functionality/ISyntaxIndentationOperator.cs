@@ -4,7 +4,6 @@ using System.Linq;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 
-using R5T.Extensions;
 using R5T.T0132;
 
 
@@ -48,30 +47,65 @@ namespace R5T.L0073.F001
                 });
 
             // Modify any XML documentation (which uses it's own indentation elements).
-            var documentationCommentExteriorTrivias = Instances.SyntaxNodeOperator.Get_DescendantTrivias(
-                node,
-                SyntaxKind.DocumentationCommentExteriorTrivia);
-
-            var triviaReplacementPairs = documentationCommentExteriorTrivias
-                .Select(trivia =>
-                {
-                    var newTrivia = Instances.SyntaxTriviaOperator.New(
-                        SyntaxKind.DocumentationCommentExteriorTrivia,
-                        indentation.ToFullString() + trivia.ToString());
-
-                    return (trivia, newTrivia);
-                });
-
-            node = Instances.SyntaxNodeOperator.Replace_Trivias_Better(
-                node,
-                triviaReplacementPairs);
-
-            // Finally, indent just the node itself.
-            node = this.Indent(
+            node = this.Indent_DocumentationComments(
                 node,
                 indentation);
 
+            // Finally, indent just the node itself, unless there is a new line trivia amongst the leading trivia
+            // (in which case it was already indented by the new line trivia operation above).
+            var anyNewLineLeadingTrivias = Instances.SyntaxNodeOperator.Get_LeadingTrivia(node)
+                .Where(Instances.SyntaxTriviaOperator.Is_EndOfLine)
+                .Any();
+
+            var indent = !anyNewLineLeadingTrivias;
+            if(indent)
+            {
+                node = this.Indent(
+                    node,
+                    indentation);
+            }
+
             return node;
+        }
+
+        public TNode Indent_DocumentationComments<TNode>(
+            TNode node,
+            SyntaxTriviaList indentation)
+            where TNode : SyntaxNode
+        {
+            // Find the parent token for each documentation comment exterior trivia,
+            // then prepend the indentation to the leading trivia of the token
+            // (so the indentation appears before the documentation comment exterior trivia).
+            var documentationCommentExteriorTriviaParentTokens = Instances.SyntaxNodeOperator.Get_DescendantTrivias(node)
+                .Where(Instances.SyntaxTriviaOperations.Is_Kind(SyntaxKind.DocumentationCommentExteriorTrivia))
+                .Select(Instances.SyntaxTriviaOperator.Get_Parent)
+                .Now();
+
+            var output = Instances.SyntaxNodeOperator.Replace_Tokens_Better(
+                    node,
+                    documentationCommentExteriorTriviaParentTokens
+                        .Select(token =>
+                        {
+                            var newToken = Instances.SyntaxTokenOperator.Prepend_ToLeadingTrivia(
+                                token,
+                                indentation);
+
+                            return (token, newToken);
+                        })
+                    );
+
+            return output;
+        }
+
+        public TNode Indent_DocumentationComments<TNode>(
+            TNode node)
+            where TNode : SyntaxNode
+        {
+            var output = this.Indent_DocumentationComments(
+                node,
+                Instances.Indentations.Tab);
+
+            return output;
         }
 
         /// <summary>

@@ -42,5 +42,11 @@ namespace R5T.L0073.F001
         public SyntaxToken Var => Instances.SyntaxTokenGenerator.Keyword(SyntaxKind.VarKeyword);
 
         public SyntaxToken Void => Instances.SyntaxTokenGenerator.Keyword(SyntaxKind.VoidKeyword);
+
+        /// <inheritdoc cref="ISyntaxTokenGenerator.XmlDocumentationCommentLeadingSpace"/>
+        public SyntaxToken XmlDocumentationCommentLeadingSpace => Instances.SyntaxTokenGenerator.XmlDocumentationCommentLeadingSpace();
+
+        /// <inheritdoc cref="ISyntaxGenerator.XmlTextLiteralNewLine"/>
+        public SyntaxToken XmlTextLiteralNewLine => Instances.SyntaxGenerator.XmlTextLiteralNewLine();
     }
 }

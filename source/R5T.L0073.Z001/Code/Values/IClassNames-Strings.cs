@@ -9,6 +9,11 @@ namespace R5T.L0073.Z001.Strings
     public partial interface IClassNames : IValuesMarker
     {
         /// <summary>
+        /// <para><value>Documentation</value></para>
+        /// </summary>
+        public string Documentation => "Documentation";
+
+        /// <summary>
         /// <para><value>Instances</value></para>
         /// </summary>
         public string Instances => "Instances";

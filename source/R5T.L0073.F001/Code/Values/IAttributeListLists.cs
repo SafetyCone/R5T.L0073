@@ -11,6 +11,6 @@ namespace R5T.L0073.F001
     [ValuesMarker]
     public partial interface IAttributeListLists : IValuesMarker
     {
-        public SyntaxList<AttributeListSyntax> Empty => Instances.SyntaxGenerator._Raw.SyntaxList<AttributeListSyntax>();
+        public SyntaxList<AttributeListSyntax> Empty => Instances.SyntaxGenerator.SyntaxList<AttributeListSyntax>();
     }
 }

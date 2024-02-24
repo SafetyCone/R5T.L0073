@@ -14,6 +14,30 @@ namespace R5T.L0073.F001
     [FunctionalityMarker]
     public partial interface ISyntaxNodeOperator : IFunctionalityMarker
     {
+        public TNode Append_LeadingTrivias<TNode>(
+            TNode node,
+            IEnumerable<SyntaxTrivia> trivias)
+            where TNode : SyntaxNode
+        {
+            var output = node.WithLeadingTrivia(
+                node.GetLeadingTrivia()
+                    .Append(trivias));
+
+            return output;
+        }
+
+        public TNode Append_LeadingTrivias<TNode>(
+            TNode node,
+            params SyntaxTrivia[] trivias)
+            where TNode : SyntaxNode
+        {
+            var output = this.Append_LeadingTrivias(
+                node,
+                trivias.AsEnumerable());
+
+            return output;
+        }
+
         public bool Contains(
             SyntaxNode parentNode,
             SyntaxNode possibleChild)
@@ -100,7 +124,17 @@ namespace R5T.L0073.F001
 
         public IEnumerable<SyntaxTrivia> Enumerate_DescendantTrivias(SyntaxNode node)
         {
-            var output = node.DescendantTrivia();
+            var output = node.DescendantTrivia(
+                descendIntoTrivia: true);
+
+            return output;
+        }
+
+        public IEnumerable<SyntaxTrivia> Enumerate_DescendantTrivias_NotInStructuredTrivia(SyntaxNode node)
+        {
+            var output = node.DescendantTrivia(
+                descendIntoTrivia: false);
+
             return output;
         }
 
@@ -186,6 +220,12 @@ namespace R5T.L0073.F001
             return output;
         }
 
+        public SyntaxTriviaList Get_LeadingTrivia(SyntaxNode node)
+        {
+            var output = node.GetLeadingTrivia();
+            return output;
+        }
+
         public bool Has_AnnotatedToken(
             SyntaxNode node,
             SyntaxAnnotation annotation,
@@ -251,9 +291,12 @@ namespace R5T.L0073.F001
             IEnumerable<SyntaxTrivia> trivias)
             where TNode : SyntaxNode
         {
+            var leadingTrivia = this.Get_LeadingTrivia(node);
+
+            var newLeadingTrivia = leadingTrivia.Prepend(trivias);
+
             var output = node.WithLeadingTrivia(
-                node.GetLeadingTrivia()
-                    .Prepend(trivias));
+                newLeadingTrivia);
 
             return output;
         }

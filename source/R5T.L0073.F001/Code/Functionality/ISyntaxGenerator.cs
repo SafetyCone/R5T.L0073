@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
+using System.Threading;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -57,7 +57,7 @@ namespace R5T.L0073.F001
             return output;
         }
 
-        
+
         public ClassDeclarationSyntax Class(string className)
         {
             var classNameIdentifier = this.Identifier(className);
@@ -87,6 +87,78 @@ namespace R5T.L0073.F001
         public CompilationUnitSyntax CompilationUnit()
         {
             var output = SyntaxFactory.CompilationUnit();
+            return output;
+        }
+
+        /// <summary>
+        /// Quality-of-life overload for <see cref="SingleLineDocumentationCommentTrivia(IEnumerable{XmlNodeSyntax})"/>
+        /// </summary>
+        public DocumentationCommentTriviaSyntax DocumentationComment(
+            IEnumerable<XmlNodeSyntax> contents)
+        {
+            var output = this.SingleLineDocumentationCommentTrivia(contents);
+            return output;
+        }
+
+        /// <summary>
+        /// Quality-of-life overload for <see cref="SingleLineDocumentationCommentTrivia(XmlNodeSyntax[])"/>
+        /// </summary>
+        public DocumentationCommentTriviaSyntax DocumentationComment(
+            params XmlNodeSyntax[] contents)
+        {
+            var output = this.SingleLineDocumentationCommentTrivia(contents);
+            return output;
+        }
+
+        /// <summary>
+        /// Creates the canonical documentation coment, with lines contained in an &lt;summary&gt; element.
+        /// </summary>
+        public DocumentationCommentTriviaSyntax DocumentationComment(
+            IEnumerable<string> lines)
+        {
+            var output = this.DocumentationComment(
+                this.Summary_XmlDocumentationElement(
+                    lines
+                )
+            );
+
+            return output;
+        }
+
+        /// <inheritdoc cref="DocumentationComment(IEnumerable{string})"/>
+        public DocumentationCommentTriviaSyntax DocumentationComment(
+            params string[] lines)
+        {
+            var output = this.DocumentationComment(
+                lines.AsEnumerable());
+
+            return output;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// Resolves the ambiguity between <see cref="DocumentationComment(string[])"/> and <see cref="DocumentationComment(XmlNodeSyntax[])"/> when input arguments are empty.
+        /// </remarks>
+        public DocumentationCommentTriviaSyntax DocumentationComment()
+        {
+            var output = this.DocumentationComment(
+                Instances.ArrayOperator.Empty<XmlNodeSyntax>());
+
+            return output;
+        }
+
+        /// <summary>
+        /// <inheritdoc cref="L0066.IStrings.Triple_Slashes" path="/summary"/>
+        /// </summary>
+        public SyntaxTrivia DocumentationCommentExteriorTrivia()
+        {
+            var output = Instances.SyntaxTriviaOperator.New(
+                SyntaxKind.DocumentationCommentExteriorTrivia,
+                // The documentation comment exterior trivia does not supply its own text, as expected.
+                Instances.Strings.Triple_Slashes);
+
             return output;
         }
 
@@ -355,6 +427,30 @@ namespace R5T.L0073.F001
             return output;
         }
 
+        /// <inheritdoc cref="SingleLineDocumentationCommentTrivia(XmlNodeSyntax[])"/>
+        public DocumentationCommentTriviaSyntax SingleLineDocumentationCommentTrivia(
+            IEnumerable<XmlNodeSyntax> contents)
+        {
+            var output = this.SingleLineDocumentationCommentTrivia(
+                contents.ToArray());
+
+            return output;
+        }
+
+        /// <remarks>
+        /// Adds an initial XmlTextLiteral element for the XML documentation comment leading space (which includes the XML documentation comment exterior).
+        /// If this is undesirable, see <see cref="Raw.ISyntaxGenerator.SingleLineDocumentationCommentTrivia(XmlNodeSyntax[])"/>.
+        /// </remarks>
+        public DocumentationCommentTriviaSyntax SingleLineDocumentationCommentTrivia(
+            params XmlNodeSyntax[] contents)
+        {
+            var modifiedContents = contents
+                .Prepend(Instances.SyntaxNodes.XmlDocumentationCommentLeadingSpace);
+
+            var output = _Raw.SingleLineDocumentationCommentTrivia(modifiedContents);
+            return output;
+        }
+
         /// <summary>
         /// Chooses <see cref="StringLiteralExpression_WithEnquoting(string)"/> as the default.
         /// </summary>
@@ -398,6 +494,52 @@ namespace R5T.L0073.F001
                 SyntaxKind.StringLiteralExpression,
                 value);
 
+            return output;
+        }
+
+        public XmlElementSyntax Summary_XmlDocumentationElement(
+            IEnumerable<string> lines)
+        {
+            var documentationCommentLines = lines
+                .Select(this.XmlDocumentationCommentNewLine)
+                ;
+
+            var output = this.XmlElement(
+                Instances.XmlDocumentationCommentElementNames.Summary,
+                documentationCommentLines);
+
+            return output;
+        }
+
+        public XmlElementSyntax Summary_XmlDocumentationElement(
+            params string[] lines)
+        {
+            var output = this.Summary_XmlDocumentationElement(
+                lines.AsEnumerable());
+
+            return output;
+        }
+
+        public SyntaxList<T> SyntaxList<T>()
+            where T : SyntaxNode
+        {
+            var output = SyntaxFactory.List<T>();
+            return output;
+        }
+
+        public SyntaxList<TNode> SyntaxList<TNode>(
+            IEnumerable<TNode> values)
+            where TNode : SyntaxNode
+        {
+            var output = SyntaxFactory.List(values);
+            return output;
+        }
+
+        public SyntaxList<T> SyntaxList<T>(
+            params T[] values)
+            where T : SyntaxNode
+        {
+            var output = this.SyntaxList(values.AsEnumerable());
             return output;
         }
 
@@ -481,6 +623,153 @@ namespace R5T.L0073.F001
                 Instances.Spacings.Space,
                 output);
 
+            return output;
+        }
+
+        /// <summary>
+        /// Quality-of-life overload for <see cref="SingleLineDocumentationCommentTrivia(IEnumerable{XmlNodeSyntax})"/>
+        /// </summary>
+        public DocumentationCommentTriviaSyntax XmlDocumentationComment(
+            IEnumerable<XmlNodeSyntax> contents)
+        {
+            var output = this.SingleLineDocumentationCommentTrivia(contents);
+            return output;
+        }
+
+        /// <summary>
+        /// Quality-of-life overload for <see cref="SingleLineDocumentationCommentTrivia(XmlNodeSyntax[])"/>
+        /// </summary>
+        public DocumentationCommentTriviaSyntax XmlDocumentationComment(
+            params XmlNodeSyntax[] contents)
+        {
+            var output = this.SingleLineDocumentationCommentTrivia(contents);
+            return output;
+        }
+
+        public XmlTextSyntax XmlDocumentationCommentLine(string text)
+        {
+            var output = this.XmlText(
+                Instances.SyntaxTokens.XmlDocumentationCommentLeadingSpace,
+                this.XmlTextLiteral(
+                    text
+                )
+            );
+
+            return output;
+        }
+
+        public XmlTextSyntax XmlDocumentationCommentNewLine(string text)
+        {
+            var output = this.XmlText(
+                Instances.SyntaxTokens.XmlTextLiteralNewLine,
+                Instances.SyntaxTokens.XmlDocumentationCommentLeadingSpace,
+                this.XmlTextLiteral(
+                    text
+                )
+            );
+
+            return output;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// Appends a <see cref="ISyntaxNodes.XmlDocumentationCommentLineLeadingSpace"/> for the XML element end tag to the contents of the element.
+        /// Use <see cref="Raw.ISyntaxGenerator.XmlElement(string, IEnumerable{XmlNodeSyntax})"/> if this is undesirable.
+        /// </remarks>
+        public XmlElementSyntax XmlElement(
+            string elementName,
+            IEnumerable<XmlNodeSyntax> contents)
+        {
+            var modifiedContents = contents.Append(
+                Instances.SyntaxNodes.XmlDocumentationCommentLineLeadingSpace);
+
+            var output = _Raw.XmlElement(
+                elementName,
+                modifiedContents);
+
+            return output;
+        }
+        
+        /// <inheritdoc cref="XmlElement(string, IEnumerable{XmlNodeSyntax})"/>
+        public XmlElementSyntax XmlElement(
+            string elementName,
+            params XmlNodeSyntax[] contents)
+        {
+            var output = this.XmlElement(
+                elementName,
+                contents.AsEnumerable());
+
+            return output;
+        }
+
+        public XmlElementEndTagSyntax XmlElementEndTag(string elementName)
+        {
+            var elementNameSyntax = this.XmlName(elementName);
+
+            var output = this.XmlElementEndTag(elementNameSyntax);
+            return output;
+        }
+
+        public XmlElementEndTagSyntax XmlElementEndTag(XmlNameSyntax elementName)
+        {
+            var output = SyntaxFactory.XmlElementEndTag(elementName);
+            return output;
+        }
+
+        public XmlElementStartTagSyntax XmlElementStartTag(string elementName)
+        {
+            var elementNameSyntax = this.XmlName(elementName);
+
+            var output = this.XmlElementStartTag(elementNameSyntax);
+            return output;
+        }
+
+        public XmlElementStartTagSyntax XmlElementStartTag(XmlNameSyntax elementName)
+        {
+            var output = SyntaxFactory.XmlElementStartTag(elementName);
+            return output;
+        }
+
+        public XmlNameSyntax XmlName(string elementName)
+        {
+            var output = SyntaxFactory.XmlName(elementName);
+            return output;
+        }
+
+        /// <summary>
+        /// Uses <inheritdoc cref="L0066.IStrings.NewLine_Windows" path="/summary"/>. (<see cref="L0066.IStrings.NewLine_Windows"/>)
+        /// </summary>
+        public SyntaxToken XmlTextLiteralNewLine()
+        {
+            var output = Instances.SyntaxTokenGenerator.From(
+                SyntaxKind.XmlTextLiteralNewLineToken,
+                // The XML text literal new line token needs to supply its own text.
+                // Use the Windows new line.
+                Instances.Strings.NewLine_Windows);
+
+            return output;
+        }
+
+        public SyntaxToken XmlTextLiteral(string text)
+        {
+            var output = Instances.SyntaxTokenGenerator.From(
+                SyntaxKind.XmlTextLiteralToken,
+                text);
+
+            return output;
+        }
+
+        public XmlTextSyntax XmlText()
+        {
+            var output = SyntaxFactory.XmlText();
+            return output;
+        }
+
+        public XmlTextSyntax XmlText(params SyntaxToken[] tokens)
+        {
+            var output = SyntaxFactory.XmlText(tokens);
             return output;
         }
     }

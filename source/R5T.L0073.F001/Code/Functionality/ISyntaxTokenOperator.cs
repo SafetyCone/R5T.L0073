@@ -1,6 +1,6 @@
 using System;
 using System.Linq;
-
+using System.Threading.Tasks.Sources;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -335,11 +335,33 @@ namespace R5T.L0073.F001
             return output;
         }
 
-        public SyntaxToken Prepend_NewLine(SyntaxToken token)
+        public SyntaxToken Prepend_ToLeadingTrivia(
+            SyntaxToken token,
+            SyntaxTrivia trivia)
         {
             var output = token.WithLeadingTrivia(
                 token.LeadingTrivia
-                    .Prepend(Instances.SyntaxTrivias.Whitespace_EndOfLine));
+                    .Prepend(trivia));
+
+            return output;
+        }
+
+        public SyntaxToken Prepend_ToLeadingTrivia(
+            SyntaxToken token,
+            SyntaxTriviaList trivias)
+        {
+            var output = token.WithLeadingTrivia(
+                token.LeadingTrivia
+                    .Prepend(trivias));
+
+            return output;
+        }
+
+        public SyntaxToken Prepend_NewLine(SyntaxToken token)
+        {
+            var output = this.Prepend_ToLeadingTrivia(
+                token,
+                Instances.SyntaxTrivias.Whitespace_EndOfLine);
 
             return output;
         }

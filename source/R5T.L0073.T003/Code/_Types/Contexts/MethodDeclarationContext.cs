@@ -25,5 +25,12 @@ namespace R5T.L0073.T003
             get => this.MethodDeclaration;
             set => this.MethodDeclaration = value;
         }
+
+        ClassDeclarationSyntax IWithSyntaxNode<ClassDeclarationSyntax>.SyntaxNode
+        {
+            get => this.ClassDeclaration;
+            set => this.ClassDeclaration = value;
+        }
+        ClassDeclarationSyntax IHasSyntaxNode<ClassDeclarationSyntax>.SyntaxNode => this.ClassDeclaration;
     }
 }

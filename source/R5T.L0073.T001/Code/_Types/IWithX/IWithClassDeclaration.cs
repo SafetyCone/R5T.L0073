@@ -9,7 +9,8 @@ namespace R5T.L0073.T001
 {
     [WithXMarker]
     public interface IWithClassDeclaration : IWithXMarker,
-        IHasClassDeclaration
+        IHasClassDeclaration,
+        IWithSyntaxNode<ClassDeclarationSyntax>
     {
         new ClassDeclarationSyntax ClassDeclaration { get; set; }
     }

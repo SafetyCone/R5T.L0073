@@ -23,7 +23,7 @@ namespace R5T.L0073.F001.Raw
         public ArrayTypeSyntax ArrayType(TypeSyntax elementType)
         {
             var output = SyntaxFactory.ArrayType(elementType,
-                this.SyntaxList(
+                Instances.SyntaxGenerator.SyntaxList(
                     SyntaxFactory.ArrayRankSpecifier()));
             return output;
         }
@@ -159,26 +159,24 @@ namespace R5T.L0073.F001.Raw
             return this.SeparatedSyntaxList(nodes.AsEnumerable());
         }
 
-        public SyntaxList<T> SyntaxList<T>()
-            where T : SyntaxNode
+        public DocumentationCommentTriviaSyntax SingleLineDocumentationCommentTrivia(
+            IEnumerable<XmlNodeSyntax> contents)
         {
-            var output = SyntaxFactory.List<T>();
+            var syntaxList = Instances.SyntaxGenerator.SyntaxList(contents);
+
+            var output = SyntaxFactory.DocumentationCommentTrivia(
+                SyntaxKind.SingleLineDocumentationCommentTrivia,
+                syntaxList);
+
             return output;
         }
 
-        public SyntaxList<TNode> SyntaxList<TNode>(
-            IEnumerable<TNode> values)
-            where TNode : SyntaxNode
+        public DocumentationCommentTriviaSyntax SingleLineDocumentationCommentTrivia(
+            params XmlNodeSyntax[] contents)
         {
-            var output = SyntaxFactory.List(values);
-            return output;
-        }
+            var output = this.SingleLineDocumentationCommentTrivia(
+                contents.AsEnumerable());
 
-        public SyntaxList<T> SyntaxList<T>(
-            params T[] values)
-            where T : SyntaxNode
-        {
-            var output = this.SyntaxList(values.AsEnumerable());
             return output;
         }
 
@@ -242,20 +240,6 @@ namespace R5T.L0073.F001.Raw
         }
 
         public VariableDeclaratorSyntax VariableDeclarator(
-            string variableName)
-        {
-            var output = SyntaxFactory.VariableDeclarator(variableName);
-            return output;
-        }
-
-        public VariableDeclaratorSyntax VariableDeclarator(
-            SyntaxToken variableName)
-        {
-            var output = SyntaxFactory.VariableDeclarator(variableName);
-            return output;
-        }
-
-        public VariableDeclaratorSyntax VariableDeclarator(
             SyntaxToken variableName,
             EqualsValueClauseSyntax initializer)
         {
@@ -276,6 +260,48 @@ namespace R5T.L0073.F001.Raw
             var output = this.VariableDeclarator(
                 variableNameToken,
                 initializer);
+
+            return output;
+        }
+
+        public VariableDeclaratorSyntax VariableDeclarator(
+            string variableName)
+        {
+            var output = SyntaxFactory.VariableDeclarator(variableName);
+            return output;
+        }
+
+        public VariableDeclaratorSyntax VariableDeclarator(
+            SyntaxToken variableName)
+        {
+            var output = SyntaxFactory.VariableDeclarator(variableName);
+            return output;
+        }
+
+        /// <summary>
+        /// Generates a syntax element without appending a line leading documentation comment for the end-tag.
+        /// </summary>
+        public XmlElementSyntax XmlElement(
+            string elementName,
+            IEnumerable<XmlNodeSyntax> contents)
+        {
+            var content = Instances.SyntaxGenerator.SyntaxList(contents);
+
+            var output = SyntaxFactory.XmlElement(
+                elementName,
+                content);
+
+            return output;
+        }
+
+        /// <inheritdoc cref="XmlElement(string, IEnumerable{XmlNodeSyntax})"/>
+        public XmlElementSyntax XmlElement(
+            string elementName,
+            params XmlNodeSyntax[] contents)
+        {
+            var output = this.XmlElement(
+                elementName,
+                contents.AsEnumerable());
 
             return output;
         }
