@@ -3,6 +3,7 @@ using System;
 using Microsoft.CodeAnalysis;
 
 using R5T.T0131;
+using R5T.T0143;
 
 
 namespace R5T.L0073.Z001
@@ -11,7 +12,10 @@ namespace R5T.L0073.Z001
     public partial interface IClassNames : IValuesMarker
     {
 #pragma warning disable IDE1006 // Naming Styles
+
+        [Ignore]
         public Strings.IClassNames _Strings => Strings.ClassNames.Instance;
+
 #pragma warning restore IDE1006 // Naming Styles
 
 

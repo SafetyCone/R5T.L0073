@@ -3,6 +3,7 @@ using System;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 using R5T.T0131;
+using R5T.T0143;
 
 
 namespace R5T.L0073.Z001
@@ -11,7 +12,10 @@ namespace R5T.L0073.Z001
     public partial interface IMethodDeclarations : IValuesMarker
     {
 #pragma warning disable IDE1006 // Naming Styles
+
+        [Ignore]
         public Signatures.IMethodDeclarations _Signatures => Signatures.MethodDeclarations.Instance;
+
 #pragma warning restore IDE1006 // Naming Styles
 
 

@@ -5,6 +5,7 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 using R5T.T0131;
+using R5T.T0143;
 
 
 namespace R5T.L0073.F001
@@ -13,7 +14,10 @@ namespace R5T.L0073.F001
     public partial interface IMethodDeclarationOperations : IValuesMarker
     {
 #pragma warning disable IDE1006 // Naming Styles
+
+        [Ignore]
         public Raw.IMethodDeclarationOperations _Raw => Raw.MethodDeclarationOperations.Instance;
+
 #pragma warning restore IDE1006 // Naming Styles
 
 
