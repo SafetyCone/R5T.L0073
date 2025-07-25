@@ -7,6 +7,8 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 using R5T.T0132;
 
+using IValues_Foundation = F10Y.L0000.IValues;
+
 
 namespace R5T.L0073.F001
 {
@@ -224,7 +226,7 @@ namespace R5T.L0073.F001
         public Task Write_ToFile(
             CompilationUnitSyntax compilationUnit,
             string codeFilePath,
-            bool overwrite = L0066.IValues.Default_OverwriteValue_Constant)
+            bool overwrite = IValues_Foundation.Overwrite_Default_Constant)
         {
             return Instances.SyntaxOperator.Write_ToFile(
                 compilationUnit,
@@ -235,7 +237,7 @@ namespace R5T.L0073.F001
         public void Write_ToFile_Synchronous(
             CompilationUnitSyntax compilationUnit,
             string codeFilePath,
-            bool overwrite = L0066.IValues.Default_OverwriteValue_Constant)
+            bool overwrite = IValues_Foundation.Overwrite_Default_Constant)
         {
             Instances.SyntaxOperator.Write_ToFile_Synchronous(
                 compilationUnit,
