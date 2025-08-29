@@ -739,7 +739,7 @@ namespace R5T.L0073.F001
         }
 
         /// <summary>
-        /// Uses <inheritdoc cref="L0066.IStrings.NewLine_Windows" path="/summary"/>. (<see cref="L0066.IStrings.NewLine_Windows"/>)
+        /// Uses <inheritdoc cref="F10Y.L0000.IStrings.NewLine_Windows" path="/summary"/>. (<see cref="F10Y.L0000.IStrings.NewLine_Windows"/>)
         /// </summary>
         public SyntaxToken XmlTextLiteralNewLine()
         {

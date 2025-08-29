@@ -54,7 +54,7 @@ namespace R5T.L0073.F001.Utilities
         public SyntaxToken[] Get_DescendantTokensWithTrailingTrivia(SyntaxNode node)
         {
             var output = this.Enumerate_DescendantTokensWithTrailingTrivia(node)
-                .Now();
+                .ToArray();
 
             return output;
         }
@@ -63,7 +63,7 @@ namespace R5T.L0073.F001.Utilities
         {
             var output = Instances.SyntaxNodeOperator.Get_DescendantTrivias(node)
                 .Where(Instances.SyntaxTriviaOperator.Is_EndOfLine)
-                .Now();
+                .ToArray();
 
             return output;
         }

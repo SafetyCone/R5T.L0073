@@ -77,7 +77,7 @@ namespace R5T.L0073.F001
             // First remove all leading trivia.
             var modifiedUsingDirectives = usingDirectives
                 .Select(Instances.SyntaxNodeOperator.Remove_LeadingTrivia)
-                .Now();
+                .ToArray();
 
             modifiedUsingDirectives = modifiedUsingDirectives
                 .Take(1)
@@ -90,7 +90,7 @@ namespace R5T.L0073.F001
                     .Skip(1)
                     .Select(Instances.SyntaxOperator.Prepend_NewLine)
                 )
-                .Now();
+                .ToArray();
 
             var output = _Raw.Add_UsingDirectives(
                 compilationUnit,

@@ -79,7 +79,7 @@ namespace R5T.L0073.F001
             var documentationCommentExteriorTriviaParentTokens = Instances.SyntaxNodeOperator.Get_DescendantTrivias(node)
                 .Where(Instances.SyntaxTriviaOperations.Is_Kind(SyntaxKind.DocumentationCommentExteriorTrivia))
                 .Select(Instances.SyntaxTriviaOperator.Get_Parent)
-                .Now();
+                .ToArray();
 
             var output = Instances.SyntaxNodeOperator.Replace_Tokens_Better(
                     node,

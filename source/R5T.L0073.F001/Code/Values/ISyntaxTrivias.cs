@@ -42,7 +42,7 @@ namespace R5T.L0073.F001
         public SyntaxTrivia Whitespace_Tab => this.Whitespace_Tab_Spaces;
 
         /// <summary>
-        /// Uses <see cref="L0066.IStrings.NewLine_ForEnvironment"/>.
+        /// Uses <see cref="F10Y.L0000.IStrings.NewLine_ForEnvironment"/>.
         /// </summary>
         public SyntaxTrivia Whitespace_EndOfLine => Instances.SyntaxTriviaOperator.New_EndOfLine(
             Instances.Strings.NewLine_ForEnvironment);

@@ -153,7 +153,7 @@ namespace R5T.L0073.F001
         public SyntaxNode[] Get_ChildNodes(SyntaxNode node)
         {
             var output = this.Enumerate_ChildNodes(node)
-                .Now();
+                .ToArray();
 
             return output;
         }
@@ -179,7 +179,7 @@ namespace R5T.L0073.F001
         public SyntaxNode[] Get_DescendantNodes(SyntaxNode node)
         {
             var output = this.Enumerate_DescendantNodes(node)
-                .Now();
+                .ToArray();
 
             return output;
         }
@@ -187,7 +187,7 @@ namespace R5T.L0073.F001
         public SyntaxToken[] Get_DescendantTokens(SyntaxNode node)
         {
             var output = this.Enumerate_DescendantTokens(node)
-                .Now();
+                .ToArray();
 
             return output;
         }
@@ -195,7 +195,7 @@ namespace R5T.L0073.F001
         public SyntaxTrivia[] Get_DescendantTrivias(SyntaxNode node)
         {
             var output = this.Enumerate_DescendantTrivias(node)
-                .Now();
+                .ToArray();
 
             return output;
         }
@@ -207,7 +207,7 @@ namespace R5T.L0073.F001
             var output = this.Enumerate_DescendantTrivias(
                 node,
                 kind)
-                .Now();
+                .ToArray();
 
             return output;
         }
