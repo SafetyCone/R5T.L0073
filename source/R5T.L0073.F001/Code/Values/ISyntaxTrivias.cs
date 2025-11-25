@@ -26,7 +26,7 @@ namespace R5T.L0073.F001
 
         /// <summary>
         /// Get a whitespace tab (as a single character).
-        /// <inheritdoc cref="L0066.IStrings.Tab" path="/summary"/>
+        /// <inheritdoc cref="F10Y.L0000.IStrings.Tab" path="/summary"/>
         /// </summary>
         public SyntaxTrivia Whitespace_Tab_Character => Instances.SyntaxTriviaOperator.New_Whitespace(
             Instances.Strings.Tab);
